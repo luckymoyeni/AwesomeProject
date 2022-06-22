@@ -13,6 +13,7 @@ import React, { useState } from "react";
 import { auth } from "../firebase";
 import { useNavigation } from "@react-navigation/core";
 import Task from "../components/Task";
+import NavigationBar from "../components/NavigationBar";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -40,12 +41,15 @@ const HomeScreen = () => {
   };
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        onPress={handleSignOut}
-        style={[styles.button, styles.buttonOutline]}
-      >
-        <Text style={styles.buttonOutlineText}>Logout</Text>
-      </TouchableOpacity>
+      <View>
+        <TouchableOpacity
+          onPress={handleSignOut}
+          style={[styles.button, styles.buttonOutline]}
+        >
+          <Text style={styles.buttonOutlineText}>Logout</Text>
+        </TouchableOpacity>
+      </View>
+      <NavigationBar />
 
       <ScrollView
         contentContainerStyle={{
@@ -71,7 +75,6 @@ const HomeScreen = () => {
           </View>
         </View>
       </ScrollView>
-
       {/* Write a task */}
       {/* Uses a keyboard avoiding view which ensures the keyboard does not cover the items on screen */}
       <KeyboardAvoidingView
