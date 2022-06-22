@@ -6,12 +6,10 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./screens/HomeScreen";
 import LoginScreen from "./screens/LoginScreen";
+import Profile from "./screens/Profile";
 
 const Stack = createNativeStackNavigator();
 
-let SettingsScreen = () => {
-  return <View>This </View>;
-};
 export default function App() {
   const [revealed, setRevealed] = useState(false);
 
@@ -25,7 +23,7 @@ export default function App() {
           component={LoginScreen}
         />
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Settings" component={SettingsScreen} />
+        <Stack.Screen name="Profile" component={Profile} />
       </Stack.Navigator>
     </NavigationContainer>
   );

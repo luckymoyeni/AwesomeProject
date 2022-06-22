@@ -10,15 +10,14 @@ import {
   Platform,
 } from "react-native";
 import React, { useState } from "react";
-import { auth } from "../firebase";
-import { useNavigation } from "@react-navigation/core";
 import Task from "../components/Task";
 import NavigationBar from "../components/NavigationBar";
+import { useKeyboard } from "@react-native-community/hooks";
 
 const HomeScreen = () => {
-  const navigation = useNavigation();
   const [task, setTask] = useState("");
   const [taskItems, setTaskItems] = useState([]);
+  const keyboard = useKeyboard();
 
   const handleAddTask = () => {
     Keyboard.dismiss();
@@ -32,25 +31,8 @@ const HomeScreen = () => {
     setTaskItems(itemsCopy);
   };
 
-  const handleSignOut = () => {
-    auth
-      .signOut()
-      //@ts-ignore
-      .then(() => navigation.replace("Login"))
-      .catch((error) => alert(error.message));
-  };
   return (
     <View style={styles.container}>
-      <View>
-        <TouchableOpacity
-          onPress={handleSignOut}
-          style={[styles.button, styles.buttonOutline]}
-        >
-          <Text style={styles.buttonOutlineText}>Logout</Text>
-        </TouchableOpacity>
-      </View>
-      <NavigationBar />
-
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,
@@ -93,6 +75,7 @@ const HomeScreen = () => {
           </View>
         </TouchableOpacity>
       </KeyboardAvoidingView>
+      {!keyboard.keyboardShown && <NavigationBar />}
     </View>
   );
 };
@@ -105,11 +88,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     top: 0,
   },
-  buttonOutlineText: {
-    color: "#0782f9",
-    fontWeight: "700",
-    fontSize: 16,
-  },
+
   button: {
     backgroundColor: "#0782f9",
     width: "20%",
@@ -139,7 +118,7 @@ const styles = StyleSheet.create({
   writeTaskWrapper: {
     position: "absolute",
     bottom: 60,
-    width: "100%",
+    width: "90%",
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
@@ -148,19 +127,18 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 15,
     backgroundColor: "#FFF",
-    borderRadius: 60,
-    borderColor: "#0782f9",
+    borderRadius: 50,
     borderWidth: 1,
-    width: 250,
+    width: 300,
+    height: 50,
   },
   addWrapper: {
-    width: 60,
-    height: 60,
+    width: 50,
+    height: 50,
     backgroundColor: "#FFF",
-    borderRadius: 60,
+    borderRadius: 50,
     justifyContent: "center",
     alignItems: "center",
-    borderColor: "#0782f9",
     borderWidth: 1,
   },
   addText: {},
